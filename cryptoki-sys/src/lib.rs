@@ -104,6 +104,16 @@ include!(concat!(
     "/src/bindings/x86_64-unknown-freebsd.rs"
 ));
 
+#[cfg(all(
+    not(feature = "generate-bindings"),
+    target_arch = "x86_64",
+    target_os = "illumos"
+))]
+include!(concat!(
+    env!("CARGO_MANIFEST_DIR"),
+    "/src/bindings/x86_64-unknown-illumos.rs"
+));
+
 // If the "generate-bindings" feature is on, use the generated bindings.
 #[cfg(feature = "generate-bindings")]
 include!(concat!(env!("OUT_DIR"), "/pkcs11_bindings.rs"));
